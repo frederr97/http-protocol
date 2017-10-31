@@ -19,5 +19,5 @@ pasta porta
 <br><br>
 
 *Frederico Resende*<br/>
-*Disciplina de Sistemas Operacionais*<br/>
+*Disciplina de Redes de Computadores*<br/>
 *Prof. Flávio Luiz Schiavoni*
