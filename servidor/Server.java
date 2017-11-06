@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -62,7 +63,8 @@ public class Server implements Runnable{
 	private static final String erro1 = "<html><head><meta charset='utf-8'></head><body><br><br><br><br><center><h3>Requisição não encontrada</h3></center></body></html>";
 	private static final String ended = "\r\n\r\n";
 	private static final String erro2 = "HTTP/1.1 Error 404 - Not Found\r\n" + "Content-Type: text/html\r\n" + "Content-Length: ";
-	
+	private static String first_code = "<html><head></head><body>";
+			
 	static public void GetReq() throws IOException, ClassNotFoundException{
 
 		int aux2 = 0;
@@ -72,15 +74,21 @@ public class Server implements Runnable{
 		if(envy.isDirectory()){ 
 			OutputStream ent = socket.getOutputStream();
 			String lista[] = envy.list();  
-            String send = "Os arquivos contidos: ";
+            String send = "";
             ent.write(send.getBytes(Charset.forName("UTF-8")));
-	        String espaco = "\n";       
 	        for(int i = 0; i < lista.length; i++){ 
-	              System.out.println(lista[i]);
-	              ent.write(espaco.getBytes(Charset.forName("UTF-8")));
-	              ent.write(lista[i].getBytes(Charset.forName("UTF-8")));
-	              ent.write(espaco.getBytes(Charset.forName("UTF-8")));
+	        	first_code += "<a style='color: #283747' href='" + lista[i] + "'> -> " + lista[i] + "</a><br/>";
 	        }  
+	        first_code += "</body></html>";
+	        
+	        PrintWriter out = new PrintWriter(socket.getOutputStream());
+	        out.println("HTTP/1.1 200 OK");
+	        out.println("Content-Type: text/html");
+	        out.println("\r\n");
+	        out.println(first_code);
+	        out.flush();
+	        out.close();
+	        
 	        ent.flush();
 	    }
 		
