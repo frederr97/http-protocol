@@ -56,7 +56,6 @@ public class Browser{
 
 		if(socket.isConnected()){
 			System.out.println("[" + socket.getInetAddress() + " acaba de conectar-se ao servidor.]");
-			System.out.println("[Fazendo requisição...]");
 			//Faz a verificação novamente para saber se é HTTP ou HTTPS
 			if(comp.substring(comp.length() - 1).equals("/")){
 				send = "GET " + follow + "/ HTTP/1.1\r\n" + "Host: " + combinado[0] + "\r\n" + "\r\n";
@@ -74,7 +73,6 @@ public class Browser{
 			file = new FileWriter(new File(rest));
 			ArrayList<String> armaz = new ArrayList<String>();
 
-			System.out.println("[Enviando arquivo...]");
 			while(reader2.hasNext()){
 				String line = reader2.nextLine();
 				System.out.println(line);
@@ -94,7 +92,6 @@ public class Browser{
 				file.write("\n");
 			}
 			
-			System.out.println("[Arquivo enviado.]");
 			file.flush();
 			file.close();
 		}
