@@ -74,25 +74,24 @@ public class Server implements Runnable{
 		if(envy.isDirectory()){ 
 			OutputStream ent = socket.getOutputStream();
 			String lista[] = envy.list();  
-            String send = "";
-            ent.write(send.getBytes(Charset.forName("UTF-8")));
-	        for(int i = 0; i < lista.length; i++){ 
-	        	first_code += "<a style='color: #283747' href='" + lista[i] + "'> -> " + lista[i] + "</a><br/>";
-	        }  
-	        first_code += "</body></html>";
+            		String send = "";
+            		ent.write(send.getBytes(Charset.forName("UTF-8")));
+	        	for(int i = 0; i < lista.length; i++){ 
+	        		first_code += "<a style='color: #283747' href='" + lista[i] + "'> -> " + lista[i] + "</a><br/>";
+	        	}  
+	        	first_code += "</body></html>";
 	        
-	        PrintWriter out = new PrintWriter(socket.getOutputStream());
-	        out.println("HTTP/1.1 200 OK");
-	        out.println("Content-Type: text/html");
-	        out.println("\r\n");
-	        out.println(first_code);
-	        out.flush();
-	        out.close();
+	        	PrintWriter out = new PrintWriter(socket.getOutputStream());
+			out.println("HTTP/1.1 200 OK");
+	        	out.println("Content-Type: text/html");
+	        	out.println("\r\n");
+	        	out.println(first_code);
+	        	out.flush();
+	        	out.close();
 	        
-	        ent.flush();
-	    }
-		
-		else if(envy.exists()){
+	        	ent.flush();
+			
+	    	}else if(envy.exists()){
 			String aux = Files.probeContentType(envy.toPath());
 			System.out.println("Content Type: " + aux);
 			OutputStream ent = socket.getOutputStream();
@@ -119,9 +118,7 @@ public class Server implements Runnable{
 			ent.flush();
 			fis.close();
 			bis.close();
-		}
-			
-		else {
+		}else {
 			devolve.write(erro2 + erro1.length() + ended + erro1);
 		}
 	}
